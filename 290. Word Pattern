@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+       unordered_map<char, string>char_map;
+       unordered_map<string, char>string_map;
+        int n = pattern.size();
+        int i = 0;
+        stringstream s(str);
+        string word;
+        while(s>>word)
+        {
+            if(i==n)
+                return false;
+            char c = pattern[i];
+            if(char_map.count(c)!= string_map.count(word))
+                return false;
+            if(char_map.count(c))
+            {
+                if(char_map[c] != word || string_map[word]!=c)
+                    return false;
+            }
+            else{
+                char_map.insert({c,word});
+                string_map.insert({word, c});
+            }
+            i++;
+        }
+        return (i==n);
+    }
+};
